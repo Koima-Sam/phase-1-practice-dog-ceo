@@ -14,10 +14,12 @@ function loadDogImages(){
         image.message.forEach(function(im){
             const dog = document.createElement('img')
             dog.src = im;
+            dog.style.width = '400px'
             document.querySelector('#dog-image-container').appendChild(dog)
         })
     })
 }
+
 
 
 function loadBreed(){
@@ -28,12 +30,12 @@ function loadBreed(){
         dog_breed = Object.keys(breeds.message)
         dog_breed.forEach(function(breed){
             addBreed(breed)
-            filterBreed(breed)
+            filterBreed()
 
         })
     })
 }
-function filterBreed(breed) {
+function filterBreed() {
     let breedDropdown = document.querySelector('#breed-dropdown');
     breedDropdown.addEventListener('change', function (event) {
        filterDog(event.target.value)
