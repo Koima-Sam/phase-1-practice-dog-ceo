@@ -1,4 +1,4 @@
-
+let dog_breed = []
 const breedUrl = 'https://dog.ceo/api/breeds/list/all'
 const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
 
@@ -25,7 +25,7 @@ function loadBreed(){
     fetch(breedUrl)
     .then(resp => resp.json())
     .then(breeds =>{
-        const dog_breed = Object.keys(breeds.message)
+        dog_breed = Object.keys(breeds.message)
         dog_breed.forEach(function(breed){
             addBreed(breed)
             filterBreed(breed)
@@ -34,24 +34,24 @@ function loadBreed(){
     })
 }
 function filterBreed(breed) {
-    const ul = document.querySelector('#dog-breeds')
-    const element = document.createElement('li')
-
     let breedDropdown = document.querySelector('#breed-dropdown');
     breedDropdown.addEventListener('change', function (event) {
-       event.preventDefault()
-       let child = ul.lastElementChild;
+       filterDog(event.target.value)
+
+    });
+}
+function filterDog(text){
+    updateBreeds(dog_breed.filter(breed => breed.startsWith(text)))
+}
+function updateBreeds(dogs){
+    const ul = document.querySelector('#dog-breeds')
+    let child = ul.lastElementChild;
        while(child){
             ul.removeChild(child);
             child = ul.lastElementChild;
 
        }
-       if(breed.slice(0,1)===event.target.value){
-            addBreed(breed)
-       }
-
-
-    });
+    dogs.forEach(dog=>addBreed(dog))
 }
 function addBreed(breed){
     const ul = document.querySelector('#dog-breeds')
